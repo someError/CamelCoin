@@ -6,6 +6,17 @@ function calculateHash (nonce, data, prevHash) {
   return crypto.createHash('sha256').update(hashBase).digest('hex')
 }
 
+function withErrorHandler (fn) {
+  return () => {
+    try {
+      fn()
+    } catch(err) {
+      console.error(err)
+    }
+  }
+}
+
 module.exports = {
-  calculateHash
+  calculateHash,
+  withErrorHandler
 }
