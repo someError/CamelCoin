@@ -2,6 +2,7 @@ const chalk = require('chalk')
 const { Level } = require('level')
 const Block = require('./Block')
 const { withErrorHandler } = require('./utils')
+
 class BlockChain {
   constructor() {
     this._lastHash = null

@@ -1,4 +1,5 @@
 const { calculateHash } = require('./utils')
+
 class ProofOfWork {
   constructor(blockData, blockPrevHash) {
     this.difficulty = 4 // TODO add increse algoritm

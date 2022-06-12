@@ -1,4 +1,5 @@
 const ProofOfWork = require('./ProofOfWork')
+
 class Block {
   constructor (data, prevHash) {
     this.hash = null
