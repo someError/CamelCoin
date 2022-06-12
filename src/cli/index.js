@@ -10,20 +10,27 @@ class CliInterface {
 
   async render(command) {
     switch(command) {
-      case 'EXIT':
-        process.exit()
-        break
-      case 'PRINT_BLOCKCHAIN':
+      case 'PRINT_BLOCKCHAIN': {
         clearTerminal()
         const chainData = await this._blockchain.getChainData()
         console.log(chainData)
         this.renderBacK()
         break
-      case 'ADD_NEW_BLOCK':
+      }
+      case 'ADD_NEW_BLOCK': {
         await this.renderBlock()
         break
-      default:
+      }
+      case 'ADD_NEW_BLOCK_WITH_HASH_LOGS': {
+        await this.renderBlock(true)
+        break
+      }
+      case 'EXIT': {
+        this._blockchain.db.close()
         clearTerminal()
+        process.exit()
+      }
+      default:
         this.renderMainMenu()
     }
   }
@@ -35,12 +42,9 @@ class CliInterface {
         type: 'list',
         name: 'command',
         message: chalk.yellow.bold('🐪  CAMEL CLI \n'),
-        choices: ['ADD_NEW_BLOCK', 'PRINT_BLOCKCHAIN', 'EXIT']
+        choices: ['ADD_NEW_BLOCK', 'ADD_NEW_BLOCK_WITH_HASH_LOGS', 'PRINT_BLOCKCHAIN', 'EXIT']
       },
     ])
-
-    
-    clearTerminal()
 
     this.render(answers.command)
   }
@@ -54,13 +58,11 @@ class CliInterface {
         choices: ['BACK']
       }
     ])
-
-    clearTerminal()
       
     this.render()
   }
 
-  async renderBlock () {
+  async renderBlock (withLog) {
     const answers = await inquirer.prompt([
       {
         name: 'blockData',
@@ -68,7 +70,10 @@ class CliInterface {
       },
     ])
 
-    const newBlock = await this._blockchain.addBlock({value: answers.blockData})
+    const newBlock = await this._blockchain.addBlock({value: answers.blockData}, (hash) => {
+      withLog && console.log(hash)
+    })
+
     console.log(newBlock)
 
     this.renderBacK()

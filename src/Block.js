@@ -7,10 +7,10 @@ class Block {
     this.nonce = 0
   }
 
-  init () {
+  init (cb) {
     const proof = new ProofOfWork(this.data, this.prevHash)
 
-    const { nonce, hash } = proof.run()
+    const { nonce, hash } = proof.run(cb)
 
     this.nonce = nonce
     this.hash = hash

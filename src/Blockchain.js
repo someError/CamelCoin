@@ -45,11 +45,12 @@ class BlockChain {
     console.log(chalk.greenBright('New chain is initialized!'))
   }
 
-  async _addBlock (data) {
+  async _addBlock (data, cb) {
     data = arguments[0][0]
+    cb = arguments[0][1]
 
     const newBlock = new Block(data, this._lastHash)
-    newBlock.init()
+    newBlock.init(cb)
 
     console.log(`${chalk.cyan('New block has been proven! Block hash is')} ${chalk.black.underline(newBlock.hash)}`)
 

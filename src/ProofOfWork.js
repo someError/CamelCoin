@@ -8,10 +8,13 @@ class ProofOfWork {
     this.hash = null
   }
 
-  run () {
+  run (cb) {
     while (this._calculateHash().slice(0, this.difficulty) !== '0'.repeat(this.difficulty)) {
+      cb && cb(this.hash)
       this.nonce++
     }
+
+    cb && cb(this.hash)
 
     return { hash: this.hash, nonce: this.nonce }
   }
