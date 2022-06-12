@@ -1,4 +1,4 @@
-# CamelCoin
+# CamelCoin 🐪
 Blockchain implementation with proof-of-work algorithm written in Node.js
 
 ### With CLI interface
