@@ -1,5 +1,5 @@
 # CamelCoin
-Blockchain implementation with proof-of-work algorithm written in Node.js by Hacksly 
+Blockchain implementation with proof-of-work algorithm written in Node.js
 
 ### With CLI interface
 
