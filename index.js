@@ -1,22 +1,15 @@
 const express = require('express')
 const BlockChain = require('./src/Blockchain')
-const readline = require('readline')
-const fs = require('fs')
+const CliInterface = require('./src/cli')
 
 const app = new express()
 
-app.listen(3000, () => {
-
-  // console.log('wtf')
-  // fs.writeFileSync(`${__dirname}/db.json`, '[]')
+app.listen(3000, async () => {
   console.log('app listen on 3000')
   const blockchain = new BlockChain()
+  await blockchain.init()
 
-  blockchain.addBlock('hiwrf')
-  // console.log(blockchain)
-  blockchain.addBlock('hi')
-  // console.log(blockchain)
-  blockchain.addBlock('hi')
-  
-  // console.log(blockchain)
+  const cli = new CliInterface(blockchain)
+
+  cli.render()
 })

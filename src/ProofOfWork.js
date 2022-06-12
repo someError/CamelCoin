@@ -1,15 +1,14 @@
 const { calculateHash } = require('./utils')
-
 class ProofOfWork {
   constructor(blockData, blockPrevHash) {
-    this.difficulty = 5 // TODO add increse algoritm
+    this.difficulty = 4 // TODO add increse algoritm
     this.blockData = blockData
     this.blockPrevHash = blockPrevHash
     this.nonce = 0
     this.hash = null
   }
 
-  start () {
+  run () {
     while (this._calculateHash().slice(0, this.difficulty) !== '0'.repeat(this.difficulty)) {
       this.nonce++
     }

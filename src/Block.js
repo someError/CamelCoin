@@ -1,6 +1,4 @@
-const { calculateHash } = require('./utils')
 const ProofOfWork = require('./ProofOfWork')
-
 class Block {
   constructor (data, prevHash) {
     this.hash = null
@@ -12,7 +10,7 @@ class Block {
   init () {
     const proof = new ProofOfWork(this.data, this.prevHash)
 
-    const { nonce, hash } = proof.start()
+    const { nonce, hash } = proof.run()
 
     this.nonce = nonce
     this.hash = hash
@@ -20,10 +18,12 @@ class Block {
     return this
   }
 
-  initGenesis () {
-    this.hash = calculateHash(this.nonce, this.data, this.prevHash)
+  serialize() {
+    return JSON.stringify(this)
+  }
 
-    return this
+  static deserialize(value) {
+    return JSON.parse(value)
   }
 }
 
